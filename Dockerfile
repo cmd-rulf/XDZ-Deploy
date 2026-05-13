@@ -8,10 +8,11 @@ RUN useradd -m botuser && \
 RUN uv venv --system-site-packages
 
 # Create symlinks for custom binary names used by BinConfig
-RUN ln -sf $(which qbittorrent-nox) /usr/local/bin/stormtorrent && \
-    ln -sf $(which aria2c) /usr/local/bin/blitzfetcher && \
-    ln -sf $(which ffmpeg) /usr/local/bin/mediaforge && \
-    ln -sf $(which rclone) /usr/local/bin/ghostdrive
+RUN for pair in "qbittorrent-nox:stormtorrent" "aria2c:blitzfetcher" "ffmpeg:mediaforge" "rclone:ghostdrive"; do \
+        src="${pair%%:*}"; dst="${pair##*:}"; \
+        loc=$(command -v "$src" 2>/dev/null || find /usr/bin /usr/local/bin /bin -name "$src" -type f 2>/dev/null | head -1); \
+        [ -n "$loc" ] && ln -sf "$loc" "/usr/local/bin/$dst" && echo "Linked $src -> $dst" || echo "WARN: $src not found, skipping $dst"; \
+    done
 
 COPY requirements.txt .
 RUN uv pip install --no-cache-dir -r requirements.txt
