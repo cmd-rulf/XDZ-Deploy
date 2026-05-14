@@ -55,8 +55,7 @@ RUN git clone --depth=1 -b v${MEGA_SDK_VERSION} \
       -DENABLE_PYTHON=ON \
       -DENABLE_JAVA=OFF \
       -DENABLE_EXAMPLES=OFF \
-      -DUSE_CRYPTOPP=OFF \
-      -DUSE_FREEIMAGE=ON && \
+      -DUSE_CRYPTOPP=OFF && \
     make -j2 && \
     cd ../bindings/python && \
     python3 setup.py bdist_wheel && \
