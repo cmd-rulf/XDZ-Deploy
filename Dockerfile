@@ -66,9 +66,6 @@ USER root
 RUN chown -R botuser:botuser /usr/src/app
 USER botuser
 
-# Healthcheck to ensure the bot process is running
-HEALTHCHECK --interval=60s --timeout=10s --start-period=30s --retries=3 \
-    CMD pgrep -f "python3 -m bot" || exit 1
 
 # Run the start script
 CMD ["bash", "start.sh"]
