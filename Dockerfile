@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Build dependencies
+# Build dependencies + FreeImage
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     cmake \
@@ -39,6 +39,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-dev \
     libsodium-dev \
     libssl-dev \
+    libfreeimage-dev \
+    libfreeimage3 \
     swig \
     && rm -rf /var/lib/apt/lists/*
 
@@ -53,14 +55,15 @@ RUN git clone --depth=1 -b v${MEGA_SDK_VERSION} \
       -DENABLE_PYTHON=ON \
       -DENABLE_JAVA=OFF \
       -DENABLE_EXAMPLES=OFF \
-      -DUSE_CRYPTOPP=OFF && \
+      -DUSE_CRYPTOPP=OFF \
+      -DUSE_FREEIMAGE=ON && \
     make -j2 && \
     cd ../bindings/python && \
     python3 setup.py bdist_wheel && \
     pip install dist/*.whl && \
     rm -rf /tmp/sdk
 
-# Remove build dependencies completely
+# Remove build dependencies but keep runtime libraries
 RUN apt-get purge -y \
     build-essential \
     cmake \
@@ -73,6 +76,7 @@ RUN apt-get purge -y \
     python3-dev \
     libsodium-dev \
     libssl-dev \
+    libfreeimage-dev \
     swig && \
     apt-get autoremove -y && \
     apt-get clean && \
