@@ -3,12 +3,9 @@ FROM tellyhubcloud/tellyhubcloud:dev
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
 
-# Copy UV binaries from official image
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
-
-# Install requirements with break-system-packages flag
+# Install requirements using pip with break-system-packages
 COPY requirements.txt .
-RUN uv pip install --break-system-packages --no-cache-dir -r requirements.txt
+RUN pip3 install --break-system-packages --no-cache-dir -r requirements.txt
 
 # Copy application files
 COPY . .
