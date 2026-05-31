@@ -1,15 +1,23 @@
-.venv/*
+# Python bytecode / caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local bot configuration (copy sample_config.py to config.py — never commit secrets)
 config.py
-token.pickle
-rclone.conf
+
+.venv/*
 .netrc
 log.txt
+cfg.zip
 accounts/*
-Thumbnails/*
+thumbnails/*
 rclone/*
 tokens/*
+cookies/*
 mediainfo/*
 list_drives.txt
+shortener.txt
 cookies.txt
 downloads/*
 *.session
