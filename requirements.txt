@@ -37,7 +37,7 @@ requests
 speedtest-cli
 telegraph
 tenacity
-#tgcrypto
+tgcrypto
 cryptg
 urllib3
 uvicorn
