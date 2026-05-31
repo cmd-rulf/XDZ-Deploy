@@ -1,15 +1,14 @@
-FROM rir18/mltb:latest
+# This file is a part of NEO-WZML (github.com/irisXDR/NEO-WZML)
 
-WORKDIR /app
-RUN chmod 777 /app
+FROM irisxdr/neo-wzml:latest
 
-RUN python3 -m venv mltbenv
+WORKDIR /usr/src/app
+
+RUN chmod 777 /usr/src/app
 
 COPY requirements.txt .
-RUN mltbenv/bin/pip install --no-cache-dir -r requirements.txt
+RUN uv pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-
-RUN sed -i 's/\r$//' *.sh
 
 CMD ["bash", "start.sh"]
