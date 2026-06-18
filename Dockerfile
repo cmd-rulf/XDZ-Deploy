@@ -1,6 +1,7 @@
 # This file is a part of NEO-WZML (github.com/irisXDR/NEO-WZML)
 
-FROM irisxdr/neo-wzml:latest
+#FROM irisxdr/neo-wzml:latest
+FROM tellyhubcloud/tellyhubcloud:latest
 
 WORKDIR /usr/src/app
 
